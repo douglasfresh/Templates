@@ -1,0 +1,31 @@
+<!doctype html>
+<html ng-app="contentful" ng-controller="ContentCtrl">
+
+  <head>
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.0-rc.2/angular.min.js"></script>
+    <script src="contentful.min.js"></script>
+    <script src="app.js"></script>
+  </head>
+
+  <body>
+    <div>
+      <h1>{{brand.name}}</h1>
+      <ul>
+        <li ng-repeat="(field, value) in brand">
+          {{field}}: {{value}}
+        </li>
+      </ul>
+
+      <h1>{{contact.name}}</h1>
+      <ul>
+        <li ng-repeat="(field, value) in brand">
+          {{field}}: {{value}}
+        </li>
+      </ul>
+
+      <!-- jQuery -->
+      <script src="http://sanstatic.com/site/js/jquery.js"></script>
+    </div>
+  </body>
+
+</html>
