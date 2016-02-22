@@ -36,7 +36,7 @@
     <script src="https://storage.googleapis.com/cdnsanstatic/js/angular.min.js"></script>
     <script src="https://storage.googleapis.com/cdnsanstatic/js/contentful.min.js"></script>
     <script src="https://storage.googleapis.com/cdnsanstatic/js/angular-route.min.js"></script>
-    <script src="https://storage.googleapis.com/cdnsanstatic/js/template.js"></script>
+    <script src="template.js"></script>
 
 </head>
 
@@ -103,6 +103,13 @@
         </div>
         <div class="container">
             <div class="row">
+                <div class="col-lg-3 col-md-6 text-center" ng-repeat="item in sections[0].items">
+                    <div class="service-box">
+                        <i class="fa fa-4x {{item.icon}} wow bounceIn text-primary"></i>
+                        <h3>{{item.title}}</h3>
+                        <p class="text-muted">{{item.text}}</p>
+                    </div>
+                </div>
                 <div class="col-lg-3 col-md-6 text-center">
                     <div class="service-box">
                         <i class="fa fa-4x fa-diamond wow bounceIn text-primary"></i>
