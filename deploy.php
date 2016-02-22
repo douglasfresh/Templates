@@ -124,7 +124,7 @@ if($compile) {
 	    <div class="row">
 	        <div class="col-lg-12">
                 <h3>LESS Variables</h3>
-                <p class="text-muted"><?php echo $content; ?></p>
+                <p class="text-muted"><?php echo "(" . $output . ") " . $content; ?></p>
 	        </div>
 	    </div>
 		<div class="row">
