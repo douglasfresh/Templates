@@ -160,7 +160,7 @@ if($compile) {
 	     space: 'bhbl6r0rag31',
 
 	     // A valid access token within the Space 
-	     accessToken: '9249ff3590642679bcf612864e139395ad456fdad79e3870b78f9221da8d4726',
+	     accessToken: '807e586395e27121d7604f1be565c98a1bb444a36711ddf89fc1e7c74d812c8e',
 
 	     // Enable or disable SSL. Enabled by default.
 	     secure: true,
