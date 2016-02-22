@@ -45,7 +45,7 @@ if($compile) {
 	file_put_contents($variables, $vars);
 
 	// Compile the LESS to CSS
-	require "less/lessphp/lessc.inc.php";
+	require "lessphp/lessc.inc.php";
 	$less = new lessc;
 	$less->compileFile($input, $output);
 }
