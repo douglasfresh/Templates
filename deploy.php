@@ -35,9 +35,9 @@ if(isset($_GET["bg"])) {
 
 if($compile) {
 	// Resources
-	$variables = "creative/less/variables.less";
-	$input = "creative/less/creative.less";
-	$output = "creative/css/creative.css";
+	$variables = "Creative/less/variables.less";
+	$input = "Creative/less/creative.less";
+	$output = "Creative/css/creative.css";
 
 	// Set the LESS variables
 	$vars = "@theme-primary:" . $color1 . "; @theme-dark:#222;";
