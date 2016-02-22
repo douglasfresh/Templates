@@ -157,7 +157,7 @@ if($compile) {
 	   // Contentul API Client
 	   var client = contentful.createClient({
 	      // ID of Space
-	     space: 'bhbl6r0rag31',
+	     space: '4sukcz8ms49e',
 
 	     // A valid access token within the Space 
 	     accessToken: '807e586395e27121d7604f1be565c98a1bb444a36711ddf89fc1e7c74d812c8e',
