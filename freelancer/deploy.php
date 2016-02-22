@@ -35,6 +35,7 @@ if(isset($_GET["bg"])) {
 
 if(isset($_GET["theme"])) {
 	$theme = $_GET["theme"];
+	$content += " @theme:" . $theme . ";";
 }
 
 if($compile) {
@@ -49,7 +50,7 @@ if($compile) {
 	file_put_contents($variables, $vars);
 
 	// Compile the LESS to CSS
-	require "less/lessphp/lessc.inc.php";
+	require "http://sanstatic.com/site/less/lessphp/lessc.inc.php";
 	$less = new lessc;
 	$less->compileFile($input, $output);
 }
