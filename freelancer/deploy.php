@@ -2,6 +2,7 @@
 
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
+ini_set('allow_url_include', 1);
 error_reporting(E_ALL);
 
 $compile = false;
@@ -50,7 +51,7 @@ if($compile) {
 	file_put_contents($variables, $vars);
 
 	// Compile the LESS to CSS
-	require "http://sanstatic.com/site/less/lessphp/lessc.inc.php";
+	include "http://sanstatic.com/site/less/lessphp/lessc.inc.php";
 	$less = new lessc;
 	$less->compileFile($input, $output);
 }
