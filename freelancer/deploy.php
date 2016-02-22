@@ -183,8 +183,8 @@ if($compile) {
 		      $scope.design["color2"] = entries[0].fields.secondaryColor;
 		      $scope.design["font1"] = entries[0].fields.headingFont;
 		      $scope.design["font2"] = entries[0].fields.bodyFont;
-		      $scope.design["bg"] = entries[0].fields.picture;
-		      scope.design["theme"] = entries[0].fields.picture;
+		      $scope.design["bg"] = entries[0].fields.background;
+		      scope.design["theme"] = entries[0].fields.theme;
 		   });
 	   };
 
