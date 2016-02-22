@@ -88,7 +88,7 @@ if($compile) {
 			    <form novalidate action="deploy.php" method="get">
 			    	<div class="row">
 					    <label>Theme</label>
-					    <input type="text" ng-model="design.theme" name="color1"><br/>
+					    <input type="text" ng-model="design.theme" name="theme"><br/>
 					</div>
 			    	<div class="row">
 					    <label>Primary Color</label>
