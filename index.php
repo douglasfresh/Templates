@@ -5,7 +5,6 @@ ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
 $compile = false;
-$content = "No variables found.";
 
 if(isset($_GET["color1"])) {
 	$compile = true;
@@ -33,11 +32,44 @@ if(isset($_GET["bg"])) {
 	$content += " @background:" . $bg . ";";
 }
 
+if(isset($_GET["theme"])) {
+	$theme = $_GET["theme"];
+	$content += " @theme:" . $theme . ";";
+}
+
+//Create the static HTML file from HTTP post
+$file = 'static.html';
+$postdata = file_get_contents("php://input");
+$request = json_decode($postdata);
+
+// Write the contents to the file from HTTP post or retry
+if(isset($request)) {
+	$contents = '<!DOCTYPE html><html>' . $request->html . '</html>';
+	file_put_contents($file, $contents);
+}
+else if(isset($theme)){
+	// create curl resource
+    $ch = curl_init();
+
+    // set url
+    curl_setopt($ch, CURLOPT_URL, "http://sanstatic.com/templates/" . $theme . ".html");
+
+    //return the transfer as a string
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+
+    // $output contains the output string
+    $output = curl_exec($ch);
+
+    // close curl resource to free up system resources
+    curl_close($ch);   
+}
+
+// Compile the LESS from HTTP get
 if($compile) {
 	// Resources
-	$variables = "Creative/less/variables.less";
-	$input = "Creative/less/creative.less";
-	$output = "Creative/css/creative.css";
+	$variables = "config/less/variables.less";
+	$input = "config/less/" . $theme . ".less";
+	$output = "config/css/" . $theme . ".css";
 
 	// Set the LESS variables
 	$vars = "@theme-primary:" . $color1 . "; @theme-dark:#222;";
@@ -49,8 +81,10 @@ if($compile) {
 	$less = new lessc;
 	$less->compileFile($input, $output);
 }
+else {
+	$content = "No variables found.";
+}
 
-// Create static index.html with PhantomJS
 // Push new CSS & HTML to GitHub
 
 ?>
@@ -69,37 +103,49 @@ if($compile) {
 		width:300px;
     	margin-left:15px;
 	}
-	form input {
+	.right {
 		float:right;
 	}
 </style>
 
 <!-- deployApp -->
-<div ng-app="deployApp" ng-controller="formCtrl" action="deploy.php">
+<div ng-app="deployApp" ng-controller="formCtrl">
 	<div class="container" style="width:90%">
 		<div class="row">
 	    	<div class="col-lg-12">
 		    	<h3>Settings</h3>
-			    <form novalidate action="deploy.php" method="get">
+			    <form novalidate action="index.php" method="get">
+			    	<div class="row">
+			    	<label>Brand</label>
+				    	<span class="right">{{brand.name}}</span>
+					</div>
+					<div class="row">
+					    <label>Space ID</label>
+					    <span class="right">{{design.space}}</span>
+					</div>
+			    	<div class="row">
+			    	<label>Theme</label>
+				    	<select class="right" ng-model="theme" ng-options="t for t in themes"></select>
+					</div>
 			    	<div class="row">
 					    <label>Primary Color</label>
-					    <input type="text" ng-model="design.color1" name="color1"><br/>
+					    <input class="right" type="text" ng-model="design.color1" name="color1"><br/>
 					</div>
 					<div class="row">
 					    <label>Secondary Color</label>
-					    <input type="text" ng-model="design.color2" name="color2"><br/>
+					    <input class="right" type="text" ng-model="design.color2" name="color2"><br/>
 				    </div>
 					<div class="row">
 					    <label>Heading Font</label>
-					    <input type="text" ng-model="design.font1" name="font1"><br/>
+					    <input class="right" type="text" ng-model="design.font1" name="font1"><br/>
 				    </div>
 					<div class="row">
 				    	<label>Paragraph Font</label>
-				    	<input type="text" ng-model="design.font2" name="font2"><br/>
+				    	<input class="right" type="text" ng-model="design.font2" name="font2"><br/>
 			    	</div>
 					<div class="row">
 					    <label>Background</label>
-					    <input type="text" ng-model="design.bg" name="bg"><br/>
+					    <input class="right" type="text" ng-model="design.bg" name="bg"><br/>
 					</div>
 					<br/>
 					<div class="row">
@@ -124,7 +170,7 @@ if($compile) {
 	    <div class="row">
 	        <div class="col-lg-12">
                 <h3>LESS Variables</h3>
-                <p class="text-muted"><?php echo "(" . $output . ") " . $content; ?></p>
+                <p class="text-muted"><?php echo $content; ?></p>
 	        </div>
 	    </div>
 		<div class="row">
@@ -165,21 +211,25 @@ if($compile) {
 
 	   });
 
+	   $scope.themes = ['blog','landing-page','freelancer','creative'];
+
 	   $scope.reset = function() {
 	   	   var entries = $q.when(client.entries({content_type: 'brand'}));
 
-		   entries.then(function(entries) {
-		      $scope.brand = entries[0].fields;
-		      $scope.design = new Array();
-		      $scope.design["color1"] = entries[0].fields.primaryColor;
-		      $scope.design["color2"] = entries[0].fields.secondaryColor;
-		      $scope.design["font1"] = entries[0].fields.primaryFont;
-		      $scope.design["font2"] = entries[0].fields.secondaryFont;
-		      $scope.design["bg"] = entries[0].fields.picture;
-		   });
+			entries.then(function(entries) {
+		    	$scope.brand = entries[0].fields;
+		    	$scope.design = new Array();
+		    	$scope.design["color1"] = entries[0].fields.primaryColor;
+		    	$scope.design["color2"] = entries[0].fields.secondaryColor;
+		    	$scope.design["font1"] = entries[0].fields.primaryFont;
+		    	$scope.design["font2"] = entries[0].fields.secondaryFont;
+		    	$scope.design["bg"] = entries[0].fields.picture;
+		    	$scope.design["space"] = entries[0].fields.space;
+		    	$scope.theme = entries[0].fields.theme;
+			});
 	   };
 
-	   $scope.reset();
+		$scope.reset();
 
 	}]);
 </script>

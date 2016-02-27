@@ -17,19 +17,16 @@
 
     <!-- Custom Fonts -->
     <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-    <link ng-href='http://fonts.googleapis.com/css?family={{vm.brand.primaryFont}}:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
-    <link ng-href='http://fonts.googleapis.com/css?family={{vm.brand.secondaryFont}}:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+    <link ng-href='http://fonts.googleapis.com/css?family={{vm.design.primaryFont}}:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link ng-href='http://fonts.googleapis.com/css?family={{vm.design.secondaryFont}}:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
 
     <!-- Inline CSS -->
     <style>
         body {
-            font-family:{{vm.brand.primaryFont | getFont}};
+            font-family:{{vm.design.primaryFont | getFont}};
         }
         h1, h2, h3, h4, h5, h6 {
-            font-family:{{vm.brand.secondaryFont | getFont}};
-        }
-        header {
-            background-image: url({{vm.header.picture}});
+            font-family:{{vm.design.secondaryFont | getFont}};
         }
     </style>
 
@@ -73,7 +70,7 @@
 
     <!-- Page Header -->
     <!-- Set your background image for this header on the line below. -->
-    <header class="intro-header" style="background-image: url('img/home-bg.jpg')">
+    <header class="intro-header" style="background-image: url({{vm.header.bg}})">
         <div class="container">
             <div class="row">
                 <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
@@ -189,7 +186,7 @@
     <script src="https://storage.googleapis.com/cdnsanstatic/js/angular.min.js"></script>
     <script src="https://storage.googleapis.com/cdnsanstatic/js/contentful.min.js"></script>
     <script src="https://storage.googleapis.com/cdnsanstatic/js/angular-route.min.js"></script>
-    <script src="https://sanstatic.com/templates/config/js/template.js"></script>
+    <script src="http://sanstatic.com/templates/config/js/template.js"></script>
 
     <!-- jQuery -->
     <script src="https://storage.googleapis.com/cdnsanstatic/js/jquery.min.js"></script>
